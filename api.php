@@ -37,12 +37,32 @@ if(isset($_GET['trackingNo']))
     # we only want to good stuff
     # regex patern
     $patern = "#<table id='tbDetails'(.*?)</table>#"; 
-
     # execute regex
     preg_match_all($patern, $result, $parsed);  
 
+    # parse the table by row <tr>
+    $trpatern = "#<tr>(.*?)</tr>#";
+    preg_match_all($trpatern, implode('', $parsed[0]), $tr);
 
-    print_r($parsed[0]);
+    $trackres = array();
+    
+    for($j=1;$j<count($tr[0]);$j++)
+    {
+        # parse the table by column <td>
+        $tdpatern = "#<td>(.*?)</td>#";
+        preg_match_all($tdpatern, $tr[0][$j], $td);
+        
+        # store into variable, strip_tags is for removeing html tags
+        $datetime = strip_tags($td[0][0]);
+        $process = strip_tags($td[0][1]);
+        $event = strip_tags($td[0][2]);
+
+        echo "
+        Date Time: $datetime <br>
+        Process: $process <br>
+        Event: $event <br><br>
+        ";
+    }
 
 }
 
