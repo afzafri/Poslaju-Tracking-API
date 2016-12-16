@@ -33,7 +33,16 @@ if(isset($_GET['trackingNo']))
     $result = curl_exec($ch); # execute curl, fetch webpage content
     curl_close($ch);  # close curl
 
-    print_r($result);
+    # using regex (regular expression) to parse the HTML webpage.
+    # we only want to good stuff
+    # regex patern
+    $patern = "#<table id='tbDetails'(.*?)</table>#"; 
+
+    # execute regex
+    preg_match_all($patern, $result, $parsed);  
+
+
+    print_r($parsed[0]);
 
 }
 
