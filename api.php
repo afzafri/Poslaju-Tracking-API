@@ -43,29 +43,37 @@ if(isset($_GET['trackingNo']))
     # parse the table by row <tr>
     $trpatern = "#<tr>(.*?)</tr>#";
     preg_match_all($trpatern, implode('', $parsed[0]), $tr);
-
-    $trackres = array();
+    unset($tr[0][0]); # remove an array element because we don't need the 1st row (<th></th>) 
+    $tr[0] = array_values($tr[0]); # rearrange the array index
     
-    for($j=1;$j<count($tr[0]);$j++)
+    # array for keeping the data
+    $trackres = array();
+    $trackres['info']['creator'] = "Afif Zafri";
+    $trackres['info']['contact'] = "http://www.facebook.com/afzafri";
+    $trackres['info']['project_page'] = "https://github.com/afzafri/Poslaju-Tracking-API";
+    $trackres['info']['date_updated'] =  "16/12/2016";
+    
+    # iterate through the array, access the data needed and store into new array 
+    for($i=0;$i<count($tr[0]);$i++)
     {
         # parse the table by column <td>
         $tdpatern = "#<td>(.*?)</td>#";
-        preg_match_all($tdpatern, $tr[0][$j], $td);
+        preg_match_all($tdpatern, $tr[0][$i], $td);
         
         # store into variable, strip_tags is for removeing html tags
         $datetime = strip_tags($td[0][0]);
         $process = strip_tags($td[0][1]);
         $event = strip_tags($td[0][2]);
 
-        echo "
-        Date Time: $datetime <br>
-        Process: $process <br>
-        Event: $event <br><br>
-        ";
+        # store into associative array
+        $trackres['items'][$i]['date_time'] = $datetime;
+        $trackres['items'][$i]['process'] = $process;
+        $trackres['items'][$i]['event'] = $event;
     }
 
+    # output/display the JSON formatted string
+    echo json_encode($trackres);
 }
-
 
 ?>
 
