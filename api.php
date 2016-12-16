@@ -8,6 +8,8 @@
     Usage: http://site.com/index.php?trackingNo
 */
 
+header("Access-Control-Allow-Origin: *"); # enable CORS
+
 if(isset($_GET['trackingNo']))
 {
     $trackingNo = $_GET['trackingNo']; # put your poslaju tracking number here 
