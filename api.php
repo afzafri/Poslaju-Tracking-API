@@ -33,8 +33,9 @@ if(isset($_GET['trackingNo']))
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata); # set post data array
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); # receive server response
     $result = curl_exec($ch); # execute curl, fetch webpage content
+    $httpstatus = curl_getinfo($ch, CURLINFO_HTTP_CODE); # receive http response status
     curl_close($ch);  # close curl
-
+    
     # using regex (regular expression) to parse the HTML webpage.
     # we only want to good stuff
     # regex patern
@@ -50,11 +51,9 @@ if(isset($_GET['trackingNo']))
     
     # array for keeping the data
     $trackres = array();
-    $trackres['info']['creator'] = "Afif Zafri";
-    $trackres['info']['contact'] = "http://www.facebook.com/afzafri";
-    $trackres['info']['project_page'] = "https://github.com/afzafri/Poslaju-Tracking-API";
-    $trackres['info']['date_updated'] =  "16/12/2016";
-    
+    $trackres['http_code'] = $httpstatus; # set http response code into the array
+
+
     # iterate through the array, access the data needed and store into new array 
     for($i=0;$i<count($tr[0]);$i++)
     {
@@ -68,10 +67,15 @@ if(isset($_GET['trackingNo']))
         $event = strip_tags($td[0][2]);
 
         # store into associative array
-        $trackres['items'][$i]['date_time'] = $datetime;
-        $trackres['items'][$i]['process'] = $process;
-        $trackres['items'][$i]['event'] = $event;
+        $trackres['data'][$i]['date_time'] = $datetime;
+        $trackres['data'][$i]['process'] = $process;
+        $trackres['data'][$i]['event'] = $event;
     }
+
+    # project info, move it here so people see the good stuff first
+    $trackres['info']['creator'] = "Afif Zafri (afzafri)";
+    $trackres['info']['project_page'] = "https://github.com/afzafri/Poslaju-Tracking-API";
+    $trackres['info']['date_updated'] =  "17/12/2016";
 
     # output/display the JSON formatted string
     echo json_encode($trackres);
