@@ -5,7 +5,7 @@
     parse the content, and return JSON formatted string.
     Please note that this is not the official API, this is actually just a "hack",
     or workaround for implementing Poslaju tracking feature in other project.
-    Usage: http://site.com/index.php?trackingNo
+    Usage: http://site.com/api.php?trackingNo=CODE , where CODE is your tracking number
 */
 
 header("Access-Control-Allow-Origin: *"); # enable CORS
