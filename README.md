@@ -1,5 +1,5 @@
 # UPDATE
-- As for 27/1/2017, this API seems not working anymore. This is due to poslaju changing the way the form submit in their tracking website. They are now using jquery to submit the form.
+- As for 27/1/2017, this API seems not working anymore. This is due to poslaju changing the way the form submit in their tracking website. They are now using jquery to submit the form and append the form data.
 - I will try to update this API, but don't expect much for a "hack" or workaround API
 
 # Poslaju Tracking API
