@@ -1,3 +1,7 @@
+# UPDATE
+- As for 27/1/2017, this API seems not working anymore. This is due to poslaju changing something in their tracking website.
+- I will try to update this API, but don't expect much for a "hack" or workaround API
+
 # Poslaju Tracking API
 - Return JSON formatted string of Poslaju Tracking details
 - I have been looking for Poslaju API but I cannot find the one that actually work and easy to use, so, I developed my own.
