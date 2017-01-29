@@ -19,9 +19,9 @@ if(isset($_GET['trackingNo']))
     # store post data into array (poslaju website only receive the tracking no with POST, not GET. So we need to POST data)
     $postdata = http_build_query(
         array(
-            'trackingNo' => $trackingNo,
-            'hvtrackNoHeader' => '',
-            'hvfromheader' => 0
+            'trackingNo03' => $trackingNo,
+            'hvtrackNoHeader03' => '',
+            'hvfromheader03' => 0,
         )
     );
 
@@ -86,7 +86,7 @@ if(isset($_GET['trackingNo']))
     # project info, move it here so people see the good stuff first
     $trackres['info']['creator'] = "Afif Zafri (afzafri)";
     $trackres['info']['project_page'] = "https://github.com/afzafri/Poslaju-Tracking-API";
-    $trackres['info']['date_updated'] =  "17/12/2016";
+    $trackres['info']['date_updated'] = "29/01/2017";
 
     # output/display the JSON formatted string
     echo json_encode($trackres);
