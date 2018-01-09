@@ -14,7 +14,7 @@ if(isset($_GET['trackingNo']))
 {
     $trackingNo = $_GET['trackingNo']; # put your poslaju tracking number here 
 
-    $url = "https://www.poslaju.com.my/track-trace-v2/"; //poslaju update their website with ssl on 2018
+    $url = "https://poslaju.com.my/track-trace-v2/"; //poslaju update their website with ssl on 2018
 
     # store post data into array (poslaju website only receive the tracking no with POST, not GET. So we need to POST data)
     $postdata = http_build_query(
