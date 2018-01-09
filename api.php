@@ -14,7 +14,7 @@ if(isset($_GET['trackingNo']))
 {
     $trackingNo = $_GET['trackingNo']; # put your poslaju tracking number here 
 
-    $url = "http://poslaju.com.my/track-trace-v2/"; # url of poslaju tracking website
+    $url = "https://poslaju.com.my/track-trace-v2/"; //poslaju update their website with ssl on 2018
 
     # store post data into array (poslaju website only receive the tracking no with POST, not GET. So we need to POST data)
     $postdata = http_build_query(
@@ -32,6 +32,7 @@ if(isset($_GET['trackingNo']))
     curl_setopt($ch, CURLOPT_POST, 1); # set option for POST data
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata); # set post data array
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); # receive server response
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false); // tell cURL to graciously accept an SSL certificate 
     $result = curl_exec($ch); # execute curl, fetch webpage content
     $httpstatus = curl_getinfo($ch, CURLINFO_HTTP_CODE); # receive http response status
     curl_close($ch);  # close curl
