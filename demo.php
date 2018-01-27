@@ -24,7 +24,7 @@
 		$httpcode = $parsed["http_code"];
 		$message = $parsed["message"];
 
-		echo "<br>Status: ".$message . "<br>";
+		echo "<br><b>Status: ".$message . "</b><br>";
 
 		if($message == "Record Found" && $httpcode == 200)
 		{
@@ -53,6 +53,16 @@
 			?>
 
 			</table>
+
+			<br><br>
+
+			<b>JSON output:</b><br>
+			<pre style="height:500px;width:700px;border:1px solid #ccc;overflow:auto;">
+				<?php
+					$json_pretty = json_encode(json_decode($getdata), JSON_PRETTY_PRINT);
+					echo $json_pretty;
+				?>
+			</pre>
 
 			<?php
 		}
