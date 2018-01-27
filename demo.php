@@ -7,7 +7,7 @@
 
 	<?php
 
-	$trackingNo = "EN222032266MY"; # your tracking number
+	$trackingNo = "ER126406955MY"; # your tracking number
 	$url = "http://localhost/poslajuAPI/api.php?trackingNo=".$trackingNo; # the full URL to the API
 	$getdata = file_get_contents($url); # use files_get_contents() to fetch the data, but you can also use cURL, or javascript/jquery json
 	$parsed = json_decode($getdata,true); # decode the json into array. set true to return array instead of object
