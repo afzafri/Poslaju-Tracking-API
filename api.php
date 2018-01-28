@@ -14,7 +14,7 @@ if(isset($_GET['trackingNo']))
 {
     $trackingNo = $_GET['trackingNo']; # put your poslaju tracking number here 
 
-    $url = "https://poslaju.com.my/track-trace-v2/"; //poslaju update their website with ssl on 2018
+    $url = "https://poslaju.com.my/track-trace-v2/"; # poslaju update their website with ssl on 2018
 
     # store post data into array (poslaju website only receive the tracking no with POST, not GET. So we need to POST data)
     $postdata = http_build_query(
@@ -32,9 +32,10 @@ if(isset($_GET['trackingNo']))
     curl_setopt($ch, CURLOPT_POST, 1); # set option for POST data
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata); # set post data array
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); # receive server response
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false); // tell cURL to graciously accept an SSL certificate 
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false); # tell cURL to graciously accept an SSL certificate 
     $result = curl_exec($ch); # execute curl, fetch webpage content
     $httpstatus = curl_getinfo($ch, CURLINFO_HTTP_CODE); # receive http response status
+    $errormsg = (curl_error($ch)) ? curl_error($ch) : "No error"; # catch error message
     curl_close($ch);  # close curl
     
     # using regex (regular expression) to parse the HTML webpage.
@@ -53,6 +54,7 @@ if(isset($_GET['trackingNo']))
     # array for keeping the data
     $trackres = array();
     $trackres['http_code'] = $httpstatus; # set http response code into the array
+    $trackres['error_msg'] = $errormsg; # set error message into array
 
     # checking if record found or not, by checking the number of rows available in the result table
     if(count($tr[0]) > 0)
