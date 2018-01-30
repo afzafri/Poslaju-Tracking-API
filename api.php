@@ -90,7 +90,7 @@ if(isset($_GET['trackingNo']))
     # project info, move it here so people see the good stuff first
     $trackres['info']['creator'] = "Afif Zafri (afzafri)";
     $trackres['info']['project_page'] = "https://github.com/afzafri/Poslaju-Tracking-API";
-    $trackres['info']['date_updated'] = "29/01/2017";
+    $trackres['info']['date_updated'] = "29/01/2018";
 
     # output/display the JSON formatted string
     echo json_encode($trackres);
