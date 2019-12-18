@@ -12,9 +12,9 @@ header("Access-Control-Allow-Origin: *"); # enable CORS
 
 if(isset($_GET['trackingNo']))
 {
-    $trackingNo = $_GET['trackingNo']; # put your poslaju tracking number here 
+    $trackingNo = $_GET['trackingNo']; # put your poslaju tracking number here
 
-    $url = "https://www.poslaju.com.my/track-trace-v2/"; # poslaju update their website with ssl on 2018
+    $url = "https://track.pos.com.my/postal-services/quick-access/?track-trace"; # poslaju update their website with ssl on 2018
 
     # store post data into array (poslaju website only receive the tracking no with POST, not GET. So we need to POST data)
     $postdata = http_build_query(
@@ -38,20 +38,21 @@ if(isset($_GET['trackingNo']))
     $httpstatus = curl_getinfo($ch, CURLINFO_HTTP_CODE); # receive http response status
     $errormsg = (curl_error($ch)) ? curl_error($ch) : "No error"; # catch error message
     curl_close($ch);  # close curl
-    
+
     # using regex (regular expression) to parse the HTML webpage.
     # we only want to good stuff
     # regex patern
-    $patern = "#<table id='tbDetails'(.*?)</table>#"; 
+    $patern = '#var strTD =  "<table>(.*?)</table>";#';
     # execute regex
-    preg_match_all($patern, $result, $parsed);  
-
+    preg_match_all($patern, $result, $parsed);
+    // echo "<table>".$parsed[1][0]."</table>";
     # parse the table by row <tr>
     $trpatern = "#<tr>(.*?)</tr>#";
     preg_match_all($trpatern, implode('', $parsed[0]), $tr);
-    unset($tr[0][0]); # remove an array element because we don't need the 1st row (<th></th>) 
+    unset($tr[0][0]); # remove an array element because we don't need the 1st row (<th></th>)
+    unset($tr[0][1]);
     $tr[0] = array_values($tr[0]); # rearrange the array index
-    
+
     # array for keeping the data
     $trackres = array();
     $trackres['http_code'] = $httpstatus; # set http response code into the array
@@ -63,13 +64,13 @@ if(isset($_GET['trackingNo']))
         $trackres['message'] = "Record Found"; # return record found if number of row > 0
 
         # record found, so proceed
-        # iterate through the array, access the data needed and store into new array 
+        # iterate through the array, access the data needed and store into new array
         for($i=0;$i<count($tr[0]);$i++)
         {
             # parse the table by column <td>
             $tdpatern = "#<td>(.*?)</td>#";
             preg_match_all($tdpatern, $tr[0][$i], $td);
-            
+
             # store into variable, strip_tags is for removeing html tags
             $datetime = strip_tags($td[0][0]);
             $process = strip_tags($td[0][1]);
@@ -86,15 +87,14 @@ if(isset($_GET['trackingNo']))
         $trackres['message'] = "No Record Found"; # return record not found if number of row < 0
         # since no record found, no need to parse the html furthermore
     }
-   
+
     # project info, move it here so people see the good stuff first
     $trackres['info']['creator'] = "Afif Zafri (afzafri)";
     $trackres['info']['project_page'] = "https://github.com/afzafri/Poslaju-Tracking-API";
-    $trackres['info']['date_updated'] = "29/01/2018";
+    $trackres['info']['date_updated'] = "18/12/2019";
 
     # output/display the JSON formatted string
     echo json_encode($trackres);
 }
 
 ?>
-
