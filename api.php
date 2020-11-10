@@ -9,40 +9,28 @@
 */
 
 header("Access-Control-Allow-Origin: *"); # enable CORS
+header('Content-type: application/json');
 
 if(isset($_GET['trackingNo']))
 {
     $trackingNo = $_GET['trackingNo']; # put your poslaju tracking number here
 
-    $url = "https://track.pos.com.my/postal-services/quick-access/?track-trace"; # poslaju update their website with ssl on 2018
+    $url = "https://sendparcel.poslaju.com.my/open/trace?tno={$trackingNo}";
 
-    # store post data into array (poslaju website only receive the tracking no with POST, not GET. So we need to POST data)
-    $postdata = http_build_query(
-        array(
-            'trackingNo03' => $trackingNo,
-            'hvtrackNoHeader03' => '',
-            'hvfromheader03' => 0,
-        )
-    );
-
-    # use cURL instead of file_get_contents(), this is because on some server, file_get_contents() cannot be used
-    # cURL also have more options and customizable
-    $ch = curl_init(); # initialize curl object
-    curl_setopt($ch, CURLOPT_URL, $url); # set url
-    curl_setopt($ch, CURLOPT_POST, 1); # set option for POST data
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata); # set post data array
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); # receive server response
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); # tell cURL to accept an SSL certificate on the host server
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); # tell cURL to graciously accept an SSL certificate on the target server
-    $result = curl_exec($ch); # execute curl, fetch webpage content
-    $httpstatus = curl_getinfo($ch, CURLINFO_HTTP_CODE); # receive http response status
-    $errormsg = (curl_error($ch)) ? curl_error($ch) : "No error"; # catch error message
-    curl_close($ch);  # close curl
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $result = curl_exec($ch);
+    $httpstatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $errormsg = (curl_error($ch)) ? curl_error($ch) : "No error";
+    curl_close($ch);
 
     # using regex (regular expression) to parse the HTML webpage.
     # we only want to good stuff
     # regex patern
-    $patern = '#var strTD =  "<table>(.*?)</table>";#';
+    $patern = "/<table.*?>(.*?)<\/table>/si";
     # execute regex
     preg_match_all($patern, $result, $parsed);
     // echo "<table>".$parsed[1][0]."</table>";
@@ -91,7 +79,7 @@ if(isset($_GET['trackingNo']))
     # project info, move it here so people see the good stuff first
     $trackres['info']['creator'] = "Afif Zafri (afzafri)";
     $trackres['info']['project_page'] = "https://github.com/afzafri/Poslaju-Tracking-API";
-    $trackres['info']['date_updated'] = "18/12/2019";
+    $trackres['info']['date_updated'] = "11/11/2020";
 
     # output/display the JSON formatted string
     echo json_encode($trackres);
