@@ -71,6 +71,7 @@
 ```
 
 # Updates
+- 11/11/2020, Poslaju changed their tracking website URL. API fixed and updated.
 - 18/12/2019, Poslaju changed their tracking website URL and change the way the data is displayed. API fixed and updated.
 - 09/01/2018, Poslaju implement SSL in their website, API updated to support SSL by Razlan Abdul Aziz (rizfield)
 - As of 29/1/2017, this API has been fixed and can be used as usual. Thanks to Haries Nur Ikhwan (hariesnurikhwan)
@@ -80,7 +81,7 @@
 # Created By
 - Afif Zafri
 - Date: 16/12/2016
-- Updated At: 18/12/2019
+- Updated At: 11/11/2020
 - Contact: http://fb.me/afzafri
 
 # License
