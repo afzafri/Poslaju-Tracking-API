@@ -28,8 +28,9 @@ class PoslajuTrackingApi
 	    # parse the table by row <tr>
 	    $trpatern = "#<tr>(.*?)</tr>#";
 	    preg_match_all($trpatern, implode('', $parsed[0]), $tr);
-	    unset($tr[0][0]); # remove an array element because we don't need the 1st row (<th></th>)
-	    unset($tr[0][1]);
+
+	    // unset($tr[0][0]); # remove an array element because we don't need the 1st row (<th></th>)
+	    // unset($tr[0][1]);
 	    $tr[0] = array_values($tr[0]); # rearrange the array index
 
 	    # array for keeping the data
