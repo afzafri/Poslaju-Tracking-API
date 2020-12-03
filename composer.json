@@ -1,0 +1,17 @@
+{
+    "name": "afzafri/poslaju-tracking-api",
+    "description": "Return JSON formatted string of Poslaju Tracking details",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Afif Zafri",
+            "email": "afif@redant.my"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Afzafri\\": "src/"
+        }
+    }
+
+}
