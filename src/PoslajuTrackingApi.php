@@ -13,6 +13,7 @@ class PoslajuTrackingApi
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_TIMEOUT, 5); //timeout in seconds
 	    $result = curl_exec($ch);
 	    $httpstatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	    $errormsg = (curl_error($ch)) ? curl_error($ch) : "No error";
