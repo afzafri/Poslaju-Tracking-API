@@ -7,7 +7,7 @@
   - This API will fetch data directly from the Poslaju Tracking website, so if there are any problem with the site, this API will also affected.
 
 # Installation
-```composer require afzafri/poslaju-tracking-api:dev-master```
+```composer require afzafri/poslaju-tracking-api```
 
 # Usage
 - ```http://site.com/api.php?trackingNo=CODE```
