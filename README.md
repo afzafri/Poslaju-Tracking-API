@@ -71,6 +71,7 @@
 ```
 
 # Updates
+- 22/04/2025, Updated to use Poslaju API endpoint. No scraping required.
 - 11/11/2020, Poslaju changed their tracking website URL. API fixed and updated.
 - 18/12/2019, Poslaju changed their tracking website URL and change the way the data is displayed. API fixed and updated.
 - 09/01/2018, Poslaju implement SSL in their website, API updated to support SSL by Razlan Abdul Aziz (rizfield)
@@ -81,7 +82,7 @@
 # Created By
 - Afif Zafri
 - Date: 16/12/2016
-- Updated At: 11/11/2020
+- Updated At: 22/04/2025
 - Contact: http://fb.me/afzafri
 
 # License
